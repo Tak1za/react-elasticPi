@@ -21,7 +21,7 @@ class App extends Component {
   handleParamAdd = event => {
     event.preventDefault();
     var newUrl = this.state.paramUrl;
-    if (newUrl == "?") newUrl += event.target.name;
+    if (newUrl === "?") newUrl += event.target.name;
     else newUrl += "&" + event.target.name;
     this.setState({
       paramUrl: newUrl
@@ -75,10 +75,10 @@ class App extends Component {
                 aria-haspopup="true"
                 aria-expanded="false"
               >
-                <span class="sr-only">Toggle Dropdown</span>
+                <span className="sr-only">Toggle Dropdown</span>
               </button>
               <div className="dropdown-menu">
-                <a className="dropdown-item" style={labels}>
+                <a className="dropdown-item" style={labels} href="#">
                   Type
                 </a>
                 <a
@@ -97,7 +97,7 @@ class App extends Component {
                 >
                   2. Aggregation
                 </a>
-                <a className="dropdown-item" style={labels}>
+                <a className="dropdown-item" style={labels} href="#">
                   Fields
                 </a>
                 <a
@@ -140,49 +140,6 @@ class App extends Component {
                 >
                   5. Capture Time
                 </a>
-                <a className="dropdown-item" style={labels}>
-                  Parameters
-                </a>
-                <a
-                  className="dropdown-item"
-                  href="#"
-                  onClick={this.handleParamAdd}
-                  name="type=avg"
-                >
-                  1. Average
-                </a>
-                <a
-                  className="dropdown-item"
-                  href="#"
-                  onClick={this.handleParamAdd}
-                  name="type=sum"
-                >
-                  2. Sum
-                </a>
-                <a
-                  className="dropdown-item"
-                  onClick={this.handleParamAdd}
-                  name="type=date_histogram"
-                  role="button"
-                >
-                  3. Date Histogram
-                </a>
-                <a
-                  className="dropdown-item"
-                  href="#"
-                  onClick={this.handleParamAdd}
-                  name="type=date_range"
-                >
-                  4. Date Range
-                </a>
-                <a
-                  className="dropdown-item"
-                  href="#"
-                  onClick={this.handleParamAdd}
-                  name="captureTime"
-                >
-                  5. Capture Time
-                </a>
               </div>
             </div>
             <input
@@ -193,7 +150,7 @@ class App extends Component {
               aria-label="Text input with segmented dropdown button"
               value={
                 this.state.url +
-                `${this.state.paramUrl == "?" ? "" : this.state.paramUrl}`
+                `${this.state.paramUrl === "?" ? "" : this.state.paramUrl}`
               }
             />
             <button
