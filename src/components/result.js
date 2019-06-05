@@ -4,10 +4,10 @@ import { Chart } from "react-google-charts";
 class Body extends React.Component {
   render() {
     var rows = [];
-    var middleRows = [];
     var currentField = "";
     var middleField = "";
     var innerField = "";
+    console.log(this.props.result);
     for (var key in this.props.result) {
       currentField = key;
       for (var item in this.props.result[key]) {
@@ -34,7 +34,7 @@ class Body extends React.Component {
     }
 
     console.log(rows);
-    console.log(middleRows);
+    console.log(currentField);
     var keyList = currentField.split("_");
     var current = keyList[0];
     var keyList1 = middleField.split("_");
@@ -47,7 +47,6 @@ class Body extends React.Component {
 
     const data = rows.map(res => [res[current], res.doc_count]);
     data.unshift(["IDs", "Count"]);
-    console.log(data);
 
     return (
       <div>
@@ -76,56 +75,48 @@ class Body extends React.Component {
               {rows
                 ? rows.map(res => (
                     <div key={res[current]}>
-                      <a
-                        className="dropdown-item"
-                        data-toggle="collapse"
-                        href={`#${res[current]}`}
-                        role="button"
-                        aria-expanded="false"
-                        aria-controls={res[current]}
-                      >
-                        <li className="list-group-item list-group-item-success d-flex justify-content-between align-items-center">
-                          ID: {res[current]}
+                      <li className="list-group-item list-group-item-success d-flex justify-content-between align-items-center py-1">
+                        <a
+                          className="btn btn-primary"
+                          data-toggle="collapse"
+                          href={`#i${res[current]}`}
+                          role="button"
+                          aria-expanded="false"
+                          aria-controls={res[current]}
+                        >
+                          {current}: {res[current]}
                           <span className="badge badge-primary badge-pill">
                             {res.doc_count}
                           </span>
-                        </li>
-                      </a>
-                      <ul className="collapse list-group" id={res[current]}>
+                        </a>
+                      </li>
+                      <ul
+                        className="list-group collapse"
+                        id={`i${res[current]}`}
+                      >
                         {res[middleField]
                           ? res[middleField].map(resMiddle => (
                               <div key={resMiddle[middle]}>
-                                <a
-                                  className="dropdown-item"
-                                  role="button"
-                                  data-toggle="collapse"
-                                  href={`#${resMiddle[middle]}`}
-                                  aria-controls={resMiddle[middle]}
-                                  aria-expanded="false"
-                                >
-                                  <li className="list-group-item list-group-item-warning d-flex justify-content-between align-items-center">
-                                    ID: {resMiddle[middle]}
-                                    <span className="badge badge-primary badge-pill">
-                                      {resMiddle.doc_count}
-                                    </span>
-                                  </li>
-                                </a>
+                                <li className="list-group-item list-group-item-warning d-flex justify-content-between align-items-center py-1">
+                                  {middle}: {resMiddle[middle]}
+                                  <span className="badge badge-primary badge-pill">
+                                    {resMiddle.doc_count}
+                                  </span>
+                                </li>
                                 <ul
-                                  className="list-group collapse"
+                                  className="list-group"
                                   id={resMiddle[middle]}
                                 >
                                   {resMiddle[innerField]
                                     ? resMiddle[innerField].map(resInner => (
                                         <div key={resInner[inner]}>
-                                          <a className="dropdown-item" href="#">
-                                            <li className="list-group-item list-group-item-danger d-flex justify-content-between align-items-center">
-                                              ID: {resInner[inner]}
-                                              {console.log(resInner[inner])}
-                                              <span className="badge badge-primary badge-pill">
-                                                {resInner.doc_count}
-                                              </span>
-                                            </li>
-                                          </a>
+                                          <li className="list-group-item list-group-item-danger d-flex justify-content-between align-items-center py-1">
+                                            {inner}: {resInner[inner]}
+                                            {console.log(resInner[inner])}
+                                            <span className="badge badge-primary badge-pill">
+                                              {resInner.doc_count}
+                                            </span>
+                                          </li>
                                         </div>
                                       ))
                                     : ""}
